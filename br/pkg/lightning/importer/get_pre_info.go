@@ -570,6 +570,8 @@ func (p *PreImportInfoGetterImpl) EstimateSourceDataSize(ctx context.Context, op
 
 					tableSize = int64(float64(tbl.TotalSize) * tbl.IndexRatio)
 
+					log.FromContext(ctx).Info("Estimate table size", zap.String("table", tbl.Name), zap.Int64("Table Total Size", tbl.TotalSize), zap.Int64("Table Size", tableSize), zap.Float64("IndexRatio", tbl.IndexRatio))
+
 					if tbl.TotalSize > int64(config.DefaultBatchSize)*2 && !tbl.IsRowOrdered {
 						unSortedBigTableCount++
 					}
